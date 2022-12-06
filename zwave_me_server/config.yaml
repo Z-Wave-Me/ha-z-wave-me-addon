@@ -5,6 +5,8 @@ slug: zwave_me_server
 description: 'Z-Wave.Me Add-on for HAss'
 arch:
   - amd64
+  - i386
+  - armhf
 url: https://github.com/Z-Wave-Me/addon-zwave-me
 ports:
   8083/tcp: 8083
