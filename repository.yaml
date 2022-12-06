@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: Example Home Assistant add-on repository
-url: 'https://github.com/home-assistant/addons-example'
-maintainer: Awesome Maintainer <awesome@example.com>
+name: Z-Wave.Me Home Assistant add-on repository
+url: 'https://github.com/Z-Wave-Me/addon-zwave-me/'
+maintainer: Dmitry Vlasov <kerbalspacema@gmail.com>
