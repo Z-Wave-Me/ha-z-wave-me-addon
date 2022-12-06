@@ -2,7 +2,7 @@ name: Builder
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "config.yaml Dockerfile"
+  MONITORED_FILES: "config.yaml Dockerfile.amd64 Dockerfile.i386 Dockerfile.armhf"
 
 on:
   push:
