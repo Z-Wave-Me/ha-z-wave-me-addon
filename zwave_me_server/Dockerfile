@@ -7,7 +7,7 @@ ENV branch=ubuntu
 ENV distro=focal
 
 ENV TZ=Europe/Moscow
-COPY run.sh /
+COPY run_amd.sh /
 RUN chmod a+x /run.sh
 
 WORKDIR /opt
@@ -28,4 +28,4 @@ VOLUME ["/opt/z-way-server/config/zddx"]
 VOLUME ["/opt/z-way-server/automation/storage"]
 
 EXPOSE 8083
-CMD /run.sh
+CMD /run_amd.sh

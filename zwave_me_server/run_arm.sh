@@ -3,4 +3,4 @@
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
 
-while [ -e /proc/`cat /var/run/z-way-server.pid` ]; do sleep 1; done
+tail -F /var/log/z-way-server.log

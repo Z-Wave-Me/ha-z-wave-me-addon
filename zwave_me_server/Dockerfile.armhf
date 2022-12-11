@@ -13,4 +13,4 @@ RUN chmod a+x start.sh
 
 EXPOSE 8083
 
-CMD /opt/z-way-server/start.sh
+CMD /opt/z-way-server/run_arm.sh
