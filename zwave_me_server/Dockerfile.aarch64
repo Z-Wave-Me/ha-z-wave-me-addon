@@ -8,8 +8,8 @@ RUN apt-get update && \
     wget procps gpg iproute2 openssh-client logrotate
 
 RUN wget -q -O - https://storage.z-wave.me/RaspbianInstall |bash
-COPY start.sh .
-RUN chmod a+x start.sh
+COPY run_arm.sh .
+RUN chmod a+x run_arm.sh
 
 EXPOSE 8083
 

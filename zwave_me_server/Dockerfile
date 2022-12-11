@@ -8,7 +8,7 @@ ENV distro=focal
 
 ENV TZ=Europe/Moscow
 COPY run_amd.sh /
-RUN chmod a+x /run.sh
+RUN chmod a+x /run_amd.sh
 
 WORKDIR /opt
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

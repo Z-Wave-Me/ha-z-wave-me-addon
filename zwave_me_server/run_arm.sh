@@ -3,4 +3,4 @@
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
 
-tail -F /var/log/z-way-server.log
+tail --pid `cat /var/run/z-way-server.pid` -n +1 -F /var/log/z-way-server.log
