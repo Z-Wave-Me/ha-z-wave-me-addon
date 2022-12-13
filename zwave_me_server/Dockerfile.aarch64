@@ -16,8 +16,6 @@ RUN chmod a+x ha-colorize-log.sh
 
 
 
-
-
 EXPOSE 8083
 
 CMD /opt/z-way-server/run_arm.sh
