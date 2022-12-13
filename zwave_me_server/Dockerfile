@@ -10,6 +10,11 @@ ENV TZ=Europe/Moscow
 COPY run_amd.sh /
 RUN chmod a+x /run_amd.sh
 
+COPY ha-colorize-log .
+RUN chmod a+x ha-colorize-log
+
+
+
 WORKDIR /opt
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

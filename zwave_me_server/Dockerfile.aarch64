@@ -11,6 +11,11 @@ RUN wget -q -O - https://storage.z-wave.me/RaspbianInstall |bash
 COPY run_arm.sh .
 RUN chmod a+x run_arm.sh
 
+COPY ha-colorize-log .
+RUN chmod a+x ha-colorize-log
+
+
+
 EXPOSE 8083
 
 CMD /opt/z-way-server/run_arm.sh
