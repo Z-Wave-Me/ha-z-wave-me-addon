@@ -7,8 +7,8 @@ ENV branch=ubuntu
 ENV distro=focal
 
 ENV TZ=Europe/Moscow
-
-
+COPY run_amd.sh /
+RUN chmod a+x /run_amd.sh
 
 
 WORKDIR /opt
@@ -27,16 +27,6 @@ ENV PATH=/opt/z-way-server:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sb
 
 VOLUME ["/opt/z-way-server/config/zddx"]
 VOLUME ["/opt/z-way-server/automation/storage"]
-
-WORKDIR /opt/z-way-server
-
-COPY run_amd.sh .
-RUN chmod a+x .run_amd.sh
-
-COPY ha-colorize-log.sh .
-RUN chmod a+x ha-colorize-log.sh
-
-
 
 EXPOSE 8083
 CMD /run_amd.sh
