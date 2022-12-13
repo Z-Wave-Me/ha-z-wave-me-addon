@@ -33,8 +33,8 @@ WORKDIR /opt/z-way-server
 COPY run_amd.sh .
 RUN chmod a+x .run_amd.sh
 
-COPY ha-colorize-log .
-RUN chmod a+x ha-colorize-log
+COPY ha-colorize-log.sh .
+RUN chmod a+x ha-colorize-log.sh
 
 
 

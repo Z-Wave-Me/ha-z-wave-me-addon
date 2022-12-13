@@ -11,8 +11,8 @@ RUN wget -q -O - https://storage.z-wave.me/RaspbianInstall |bash
 COPY run_arm.sh .
 RUN chmod a+x run_arm.sh
 
-COPY ha-colorize-log .
-RUN chmod a+x ha-colorize-log
+COPY ha-colorize-log.sh .
+RUN chmod a+x ha-colorize-log.sh
 
 
 
