@@ -16,8 +16,6 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a916
 RUN apt-get update && \
     apt-get install -y z-way-server zbw
 
-ENV LD_LIBRARY_PATH=/opt/z-way-server/libs
-ENV PATH=/opt/z-way-server:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 COPY run_amd.sh .
 RUN chmod a+x run_amd.sh
 
