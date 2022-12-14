@@ -1,6 +1,6 @@
 name: Z-Wave.Me Add-on
 startup: services
-version: 1.1.0
+version: 1.1.1
 slug: zwave_me_server
 description: 'Z-Wave.Me Add-on for HAss'
 arch:
