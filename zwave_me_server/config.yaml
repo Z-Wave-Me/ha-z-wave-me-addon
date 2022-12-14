@@ -1,13 +1,13 @@
 name: Z-Wave.Me Add-on
 startup: services
-version: 1.1.0
+version: 1.1.1
 slug: zwave_me_server
 description: 'Z-Wave.Me Add-on for HAss'
 arch:
   - amd64
   - aarch64
   - armhf
-url: https://github.com/msazanov/addon-zwave-me
+url: https://github.com/z-wave-me/addon-zwave-me
 ports:
   8083/tcp: 8083
 options:
@@ -17,4 +17,4 @@ schema:
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Wave.Me communication port
-image: "ghcr.io/msazanov/{arch}-ha-z-wave-me-addon"
+image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"
