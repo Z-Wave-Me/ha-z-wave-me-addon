@@ -17,5 +17,6 @@ VOLUME ["/opt/z-way-server/automation/storage"]
 VOLUME ["/opt/z-way-server/automation/userModules"]
 
 EXPOSE 8083
+EXPOSE 8084
 
 CMD /opt/z-way-server/run_arm.sh
