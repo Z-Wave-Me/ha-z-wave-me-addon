@@ -10,8 +10,10 @@ arch:
 url: https://github.com/msazanov/addon-zwave-me
 ports:
   8083/tcp: 8083
-devices:
-  - /dev/ttyACM0
+options:
+  device: /dev/ttyAMA0
+schema:
+  device: device(subsystem=tty)
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Wave.Me communication port
