@@ -53,5 +53,5 @@ After you connect via SSH to the controller, run the command and reboot your Ras
 ```
 echo "dtoverlay=pi3-disable-bt" >> /mnt/boot/config.txt
 ```
-##Use with UZB
+## Use with UZB
 When using UZB, you do not need to disable the built-in bluetooth, and in the add-on settings you need to specify the port to the USB device, usually it is `/dev/ttyACM0`s
