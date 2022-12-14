@@ -19,8 +19,9 @@ RUN apt-get update && \
 COPY run_amd.sh .
 RUN chmod a+x run_amd.sh
 
-VOLUME ["/opt/z-way-server/config/zddx"]
+VOLUME ["/opt/z-way-server/config"]
 VOLUME ["/opt/z-way-server/automation/storage"]
+VOLUME ["/opt/z-way-server/automation/userModules"]
 
 EXPOSE 8083
 
