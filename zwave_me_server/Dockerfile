@@ -1,17 +1,14 @@
 FROM ubuntu:focal
 
-RUN apt-get update && \
-    apt-get install -y wget procps gpg libcurl4 logrotate
-
 ENV branch=ubuntu
 ENV distro=focal
 
 ENV TZ=Europe/Moscow
-COPY run_amd.sh /
-RUN chmod a+x /run_amd.sh
-
-WORKDIR /opt
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+WORKDIR /opt/z-way-server
+
+RUN apt-get update && \
+    apt-get install -y wget procps gpg libcurl4 logrotate
 
 # Add Z-Wave.Me repository
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683 && \
@@ -23,9 +20,12 @@ RUN apt-get update && \
 
 ENV LD_LIBRARY_PATH=/opt/z-way-server/libs
 ENV PATH=/opt/z-way-server:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+COPY run_amd.sh .
+RUN chmod a+x run_amd.sh
 
 VOLUME ["/opt/z-way-server/config/zddx"]
 VOLUME ["/opt/z-way-server/automation/storage"]
 
 EXPOSE 8083
-CMD /run_amd.sh
+
+CMD /opt/z-way-server/run_amd.sh
