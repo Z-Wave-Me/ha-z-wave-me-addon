@@ -41,3 +41,17 @@ Home inforation about Z-Way can be found on the [Z-Wave.Me web site](https://z-w
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+
+
+## Use together with Raspberry 2, Razberry 5, Raspberry 7, Raspberry 7 Pro
+To use these boards, bluetooth must be disabled on the Host system. To do this, you will need to enable SSH access, official instructions: 
+https://developers.home-assistant.io/docs/operating-system/debugging/
+Our full version of the instructions:
+https://help.z-wave.me/en/knowledge_base/art/146/cat/88/
+
+After you connect via SSH to the controller, run the command and reboot your Raspberry Pi by disconnecting the power supply:
+```
+echo "dtoverlay=pi3-disable-bt" >> /mnt/boot/config.txt
+```
+##Use with UZB
+When using UZB, you do not need to disable the built-in bluetooth, and in the add-on settings you need to specify the port to the USB device, usually it is `/dev/ttyACM0`s
