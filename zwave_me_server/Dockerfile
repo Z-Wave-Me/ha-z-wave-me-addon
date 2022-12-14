@@ -3,8 +3,6 @@ FROM ubuntu:focal
 ENV branch=ubuntu
 ENV distro=focal
 
-ENV TZ=Europe/Moscow
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /opt/z-way-server
 
 RUN apt-get update && \
