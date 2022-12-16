@@ -1,5 +1,8 @@
 FROM ubuntu:focal
 
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ENV branch=ubuntu
 ENV distro=focal
 
@@ -19,9 +22,7 @@ RUN apt-get update && \
 COPY run_amd.sh .
 RUN chmod a+x run_amd.sh
 
-VOLUME ["/opt/z-way-server/config"]
-VOLUME ["/opt/z-way-server/automation/storage"]
-VOLUME ["/opt/z-way-server/automation/userModules"]
+
 
 EXPOSE 8083
 

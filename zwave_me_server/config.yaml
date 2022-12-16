@@ -11,13 +11,12 @@ url: https://github.com/z-wave-me/addon-zwave-me
 ports:
   8083/tcp: 8083
   8084/tcp: 8084
-devices:
-  - /dev/ttyACM0
+options:
+  device: /dev/ttyAMA0
+schema:
+  device: device(subsystem=tty)
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Way UI
   8084/tcp: Webif UI
-image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"
-volumes:
-  - /etc/timezone:/etc/timezone:ro
-  - /etc/localtime:/etc/localtime:ro
+image: "ghcr.io/msazanov/{arch}-ha-z-wave-me-addon"
