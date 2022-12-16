@@ -7,7 +7,7 @@ arch:
   - amd64
   - aarch64
   - armhf
-url: https://github.com/z-wave-me/addon-zwave-me
+url: https://github.com/Z-Wave-Me/ha-z-wave-me-addon/
 ports:
   8083/tcp: 8083
   8084/tcp: 8084
