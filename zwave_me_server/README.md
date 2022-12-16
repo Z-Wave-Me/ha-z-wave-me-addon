@@ -29,3 +29,16 @@ Z-Way is a good match for Home Assistant, giving you the performance of the Z-Wa
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+
+## Using Razberry 2, Razberry 5, Razberry 7 and 7 Pro
+This board is installed on the Raspberry Pi GPIO and uses the built-in UART for communication, this line also uses the built-in Bluetooth, which must be excluded at the operating system level.
+First, you need to connect via SSH to the HAOS host system. Instructions that indicate how to do this:
+https://developers.home-assistant.io/docs/operating-system/debugging/
+There is also our complete instructions for installing HAOS, which describes in detail how to disable bluetooth:
+https://help.z-wave.me/en/knowledge_base/article/146/category/88/
+
+After you connect via SSH, run the command:
+
+echo "dtoverlay=pi3-disable-bt" >> /mnt/boot/config.txt
+
+This command will disable bluetooth at the system level, then restart your Raspberry Pi, after that Z-Way will be able to work with this board
