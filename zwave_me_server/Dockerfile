@@ -6,7 +6,7 @@ ENV distro=focal
 WORKDIR /opt/z-way-server
 
 RUN apt-get update && \
-    apt-get install -y wget procps gpg libcurl4 logrotate, tzdata
+    apt-get install -y wget procps gpg libcurl4 logrotate tzdata
 
 # Add Z-Wave.Me repository
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683 && \
