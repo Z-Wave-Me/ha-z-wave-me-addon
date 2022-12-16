@@ -19,4 +19,4 @@ webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Way UI
   8084/tcp: Webif UI
-image: "ghcr.io/msazanov/{arch}-ha-z-wave-me-addon"
+image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"
