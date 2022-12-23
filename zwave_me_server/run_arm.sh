@@ -9,7 +9,7 @@ ln -s $d /dev/zwave
 sed -Ei "s|/dev/tty[A-Z]*[0-9]|/dev/zwave|g" /opt/z-way-server/automation/defaultConfigs/config.json
 
 # copy files the first boot and link paths to /data on each boot
-for path in /opt/z-way-server/automation/storage/ /opt/z-way-server/config/zddx/ /opt/z-way-server/automation/userModules/ /etc/init.d/ /etc/z-way/ /etc/zbw/; do
+for path in /opt/z-way-server/automation/storage/ /opt/z-way-server/config/zddx/ /opt/z-way-server/automation/userModules/ /etc/init.d/ /etc/z-way/ /etc/zbw/ /etc/init.d/zbw_connect; do
   if [ -f $path -a ! -f /data/$path ]; then
     cp -R $path /data/$path
   fi
@@ -17,7 +17,7 @@ for path in /opt/z-way-server/automation/storage/ /opt/z-way-server/config/zddx/
 done
 
 # start
-/etc/init.d/zbw start
+/etc/init.d/zbw_connect start
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
 
