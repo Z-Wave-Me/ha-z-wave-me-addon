@@ -6,21 +6,21 @@ ENV distro=focal
 WORKDIR /opt/z-way-server
 
 RUN apt-get update && \
-    apt-get install -y wget procps gpg libcurl4 logrotate tzdata
+    apt-get install -qqy --no-install-recommends \
+    ca-certificates curl libnss-mdns \
+    wget procps gpg iproute2 openssh-client logrotate
 
-# Add Z-Wave.Me repository
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683 && \
-    echo "deb https://repo.z-wave.me/z-way/$branch $distro main" > /etc/apt/sources.list.d/z-wave-me.list
+RUN wget -q -O - https://raw.githubusercontent.com/msazanov/Z-WayInstallScript/main/RaspbianInstall |bash
+RUN rm -f /opt/z-way-server/automation/storage/*
 
-# Update packages list
-RUN apt-get update && \
-    apt-get install -y z-way-server zbw
 
-COPY run_amd.sh .
-RUN chmod a+x run_amd.sh
+RUN echo "ha" > /etc/z-way/box_type
+
+COPY run.sh .
+RUN chmod a+x run.sh
 
 
 
 EXPOSE 8083
 
-CMD /opt/z-way-server/run_amd.sh
+CMD /opt/z-way-server/run.sh
