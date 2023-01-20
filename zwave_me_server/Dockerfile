@@ -10,7 +10,7 @@ RUN apt-get update && \
     ca-certificates curl libnss-mdns \
     wget procps gpg iproute2 openssh-client logrotate
 
-RUN wget -q -O - https://raw.githubusercontent.com/msazanov/Z-WayInstallScript/main/RaspbianInstall |bash
+RUN wget -q -O - https://storage.z-wave.me/Z-Way-Install |bash
 RUN rm -f /opt/z-way-server/automation/storage/*
 
 
