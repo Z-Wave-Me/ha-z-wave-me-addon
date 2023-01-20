@@ -50,7 +50,7 @@ if [ -f /opt/z-way-server/automation/storage/configjson-* ] && [ $forceDevice ];
   sed -Ei "s|/dev/tty[A-Z]*[0-9]|$device|g" $userCJ
 fi
 
-# Change default config dirrectory to configs/config for compapility in HA and HUB
+# Change default config directory to configs/config for compatility with Docker, HA and Hub
 if [ -e /opt/z-way-server/config -a ! -e /data/opt/z-way-server/configs/config ]; then
   # Change config path in defaultConfigs/config.json from config to configs/config
   sed -i 's|"config": "config"|"config": "configs/config"|g' $defCJ
