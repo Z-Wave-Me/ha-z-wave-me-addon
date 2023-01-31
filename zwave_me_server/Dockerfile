@@ -7,8 +7,8 @@ WORKDIR /opt/z-way-server
 
 RUN apt-get update && \
     apt-get install -qqy --no-install-recommends \
-    ca-certificates curl libnss-mdns \
-    wget procps gpg iproute2 openssh-client logrotate
+    ca-certificates curl \
+    wget procps gpg
 
 RUN wget -q -O - https://storage.z-wave.me/Z-Way-Install |bash
 RUN rm -f /opt/z-way-server/automation/storage/*

@@ -21,7 +21,7 @@ fi
 sed -Ei "s|/dev/tty[A-Z]*[0-9]|$device|g" $defCJ
 
 # Folders and files that we need to copy to the external /data directory
-paths="/opt/z-way-server/automation/storage /opt/z-way-server/automation/userModules /etc/zbw /etc/init.d/zbw_connect /opt/z-way-server/automation/.syscommands"
+paths="/opt/z-way-server/automation/storage /opt/z-way-server/automation/userModules /opt/z-way-server/htdocs/smarthome/user/skin /opt/z-way-server/htdocs/smarthome/user/icons /etc/zbw /etc/init.d/zbw_connect /opt/z-way-server/automation/.syscommands"
 for path in $paths; do
   # Сheck the presence of the /data/ folder and the original server directories.
   if [ -e $path -a ! -e /data/$path ]; then
@@ -41,7 +41,7 @@ userCJ=$(ls /opt/z-way-server/automation/storage/configjson-*)
 
 # If we can't find configjson file in /data dirrectory we think this is first start and generate new remote ID
 if [ ! -f /data$userCJ ]; then 
-  wget 'http://find.z-wave.me/zbw_new_user?box_type=razberry' -O /tmp/zbw_connect_setup.run 
+  wget 'http://find.z-wave.me/zbw_new_user?box_type=ha' -O /tmp/zbw_connect_setup.run 
   bash /tmp/zbw_connect_setup.run -y
 fi
 
@@ -87,7 +87,7 @@ done
 echo $LOCAL_IPS > /etc/zbw/local_ip
 
 # Starting services
-/etc/init.d/dbus start
+#/etc/init.d/dbus start
 #/etc/init.d/avahi-daemon start
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
