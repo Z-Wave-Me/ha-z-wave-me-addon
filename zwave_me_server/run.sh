@@ -86,6 +86,7 @@ for i in $LOCAL_IPS; do
 done
 echo $LOCAL_IPS > /etc/zbw/local_ip
 
+
 # Starting services
 #/etc/init.d/dbus start
 #/etc/init.d/avahi-daemon start
