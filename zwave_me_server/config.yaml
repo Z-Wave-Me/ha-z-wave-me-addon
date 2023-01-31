@@ -2,7 +2,7 @@ name: Z-Wave.Me Add-on
 startup: services
 version: 1.1.8
 slug: zwave_me_server
-description: 'Z-Wave.Me Add-on for HAss'
+description: 'Z-Wave.Me Z-Way add-on for Home Assistant'
 arch:
   - amd64
   - aarch64
@@ -13,8 +13,10 @@ ports:
   8084/tcp: 8084
 options:
   device: /dev/ttyAMA0
+  configjson_device_replace: false
 schema:
   device: device(subsystem=tty)
+  configjson_device_replace: bool?
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Way UI
