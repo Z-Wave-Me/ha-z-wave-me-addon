@@ -12,7 +12,7 @@ Add this add-on to your Home Assistant
 <!-- ![Supports i386 Architecture][i386-shield] -->
 <!-- ![Supports armv7 Architecture][armv7-shield] -->
 
-Once installed, Z-Way interface can be accessed on port 8083.
+Once installed, Z-Way interface can be accessed on port http://homeassistant.local:8083.
 
 # Integrate with Home Assistant
 After installing this add-on, add [Z-Wave.Me intergration](https://www.home-assistant.io/integrations/zwave_me) to your Home Assistant to integrate devices present in Z-Way in Home Assistant UI.
