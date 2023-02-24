@@ -64,6 +64,7 @@ ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 /etc/init.d/avahi-daemon start
 
 # Resolve homeassistant.local into IP and set it for ZBW
+sleep 10 # give mDNS some time to discover hostnames
 avahi-resolve -n homeassistant.local | cut -f 2 > /etc/zbw/local_ips
 
 # Starting Z-Way services
