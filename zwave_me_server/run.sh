@@ -59,31 +59,14 @@ fi
 # Make simlinks
 ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 
+# Starting mDNS service for host name resolution
+/etc/init.d/dbus start
+/etc/init.d/avahi-daemon start
 
-IFACE_BLACKLIST_MASK='^lo$|^veth|^docker|^hassio'
-# Get network interfaces
-IFACES=`ls -1 /sys/class/net | grep -Ev "$IFACE_BLACKLIST_MASK"`
+# Resolve homeassistant.local into IP and set it for ZBW
+avahi-resolve -n homeassistant.local | cut -f 2 > /etc/zbw/local_ips
 
-for i in $IFACES; do
-  LOCAL_IP=`ip a show dev $i | sed -nre 's/^\s+inet ([0-9.]+).+$/\1/; T n; p; :n'`
-  LOCAL_IPS="$LOCAL_IPS $LOCAL_IP"
-done
-
-  # i think filtering out only 127.0.0.1 address is sufficient
-ZBW_INTERNAL_IP=""
-for i in $LOCAL_IPS; do
-  if [[ $ZBW_INTERNAL_IP ]]; then
-    ZBW_INTERNAL_IP="$ZBW_INTERNAL_IP,$i";
-  else
-    ZBW_INTERNAL_IP="$i";
-  fi
-done
-echo $LOCAL_IPS > /etc/zbw/local_ip
-
-
-# Starting services
-#/etc/init.d/dbus start
-#/etc/init.d/avahi-daemon start
+# Starting Z-Way services
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
 /etc/init.d/zbw_connect start
