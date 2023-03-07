@@ -1,4 +1,12 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+## 1.1.13
+
+- Updated the z-way version to 4.0.3 
+- Add checkbox for remote access
+- Add tech support access checkbox and password (by default login pi, password razberry)
+- fix not showing homeassistant.local in find.z-wave.me
+- Added a port for MQTT, 8883=> to any
+
 
 ## 1.1.12
 

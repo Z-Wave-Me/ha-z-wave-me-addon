@@ -7,6 +7,11 @@ device=/dev/ttyACM0
 # Do not use this function if more than Z-Wave 1 interface is used
 forceDevice=false
 
+#By default remote access is on
+remote_access=true
+#And tech support acccess is not
+remote_support_access=false
+
 # Default config path
 defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 
@@ -14,8 +19,12 @@ defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 if [ -f "/data/options.json" ]; then
   # Get device path from Configuration tab of addon
   device=$(grep -Eo '/dev/tty[A-Z]*[0-9]' /data/options.json)
-  forceDevice=$(grep "configjson_device_replace" /data/options.json | cut -d ":" -f 2)
+  forceDevice=$(grep "configjson_device_replace" /data/options.json | cut -d ":" -f 2 | tr -d ',')
+  remote_access=$(grep "remote_access" /data/options.json | cut -d ":" -f 2 | tr -d ',')
+  remote_support_access=$(grep "remote_support_access" /data/options.json | cut -d ":" -f 2 | tr -d ',')
+  zbw_password=$(grep "zbw_password" /data/options.json | cut -d ":" -f 2 | tr -d '," ')
 fi
+
 
 # Change device path in /defailtConfig/config.json
 sed -Ei "s|/dev/tty[A-Z]*[0-9]|$device|g" $defCJ
@@ -61,11 +70,34 @@ ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 
 # Use homeassistant.local in ZBW (for find.z-wave.me) instead of the local IP as we can't get the IP outside the docker
 echo homeassistant.local > /etc/zbw/local_ips
+echo "8083" > /etc/zbw/local_port
+
+
+
+# Check if remote access for support enable
+if [ $remote_support_access ]; then
+service ssh start
+touch /data/etc/zbw/flags/forward_ssh
+else
+rm /data/etc/zbw/flags/forward_ssh
+fi
+
+
+# Change pi user default password
+if [ -n "$zbw_password" ]; then
+  echo "pi:$zbw_password" | chpasswd
+fi
+
+
+# If remote access enable start zbw_connect
+if [ $remote_access ]; then
+/etc/init.d/zbw_connect start
+fi
+
 
 # Starting Z-Way services
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
-/etc/init.d/zbw_connect start
 
 # colored log output
 tail --pid `cat /var/run/z-way-server.pid` -F /var/log/z-way-server.log | /opt/z-way-server/colorize-log.sh
