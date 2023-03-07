@@ -21,7 +21,7 @@ fi
 sed -Ei "s|/dev/tty[A-Z]*[0-9]|$device|g" $defCJ
 
 # Folders and files that we need to copy to the external /data directory
-paths="/opt/z-way-server/automation/storage /opt/z-way-server/automation/userModules /opt/z-way-server/htdocs/smarthome/user/skin /opt/z-way-server/htdocs/smarthome/user/icons /etc/zbw /opt/z-way-server/automation/.syscommands"
+paths="/opt/z-way-server/automation/storage /opt/z-way-server/automation/userModules /opt/z-way-server/htdocs/smarthome/user/skin /opt/z-way-server/htdocs/smarthome/user/icons /etc/zbw"
 for path in $paths; do
   # Сheck the presence of the /data/ folder and the original server directories.
   if [ -e $path -a ! -e /data/$path ]; then
