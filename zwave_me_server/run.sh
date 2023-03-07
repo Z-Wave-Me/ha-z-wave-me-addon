@@ -32,7 +32,7 @@ for path in $paths; do
   else
     rm -rf $path
   fi
-# Creating symlinks to the objects that we moved
+  # Creating symlinks to the objects that we moved
   ln -sf /data$path $path
 done
 

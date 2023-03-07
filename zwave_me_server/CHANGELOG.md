@@ -1,6 +1,6 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
-## 1.1.10
+## 1.1.12
 
 - New ZBW 2.3 adopted
 - Use homeassistant.local in find.z-wave.me instead of the local IP
