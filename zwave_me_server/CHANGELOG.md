@@ -3,7 +3,7 @@
 ## 1.1.10
 
 - New ZBW 2.3 adopted
-- Resolve local IP of the HA installation for find.z-wave.me
+- Use homeassistant.local in find.z-wave.me instead of the local IP
 
 ## 1.1.8
 

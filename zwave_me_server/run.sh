@@ -59,13 +59,8 @@ fi
 # Make simlinks
 ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 
-# Starting mDNS service for host name resolution
-/etc/init.d/dbus start
-/etc/init.d/avahi-daemon start
-
-# Resolve homeassistant.local into IP and set it for ZBW
-sleep 20 # give mDNS some time to discover hostnames
-avahi-resolve -n homeassistant.local | cut -f 2 > /etc/zbw/local_ips
+# Use homeassistant.local in ZBW (for find.z-wave.me) instead of the local IP as we can't get the IP outside the docker
+echo homeassistant.local > /etc/zbw/local_ips
 
 # Starting Z-Way services
 /etc/init.d/mongoose start
