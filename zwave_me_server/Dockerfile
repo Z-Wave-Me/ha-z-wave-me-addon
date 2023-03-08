@@ -5,6 +5,8 @@ ENV distro=focal
 
 WORKDIR /opt/z-way-server
 
+ENV DEBIAN_FRONTEND=noninteractive 
+
 RUN apt-get update && \
     apt-get install -qqy --no-install-recommends \
     ca-certificates curl \
