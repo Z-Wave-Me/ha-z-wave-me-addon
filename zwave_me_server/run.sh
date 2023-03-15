@@ -76,10 +76,10 @@ echo "8083" > /etc/zbw/local_port
 
 # Check if remote access for support enable
 if [ $remote_support_access ]; then
-service ssh start
-touch /data/etc/zbw/flags/forward_ssh
+  service ssh start
+  touch /data/etc/zbw/flags/forward_ssh
 else
-rm /data/etc/zbw/flags/forward_ssh
+  rm /data/etc/zbw/flags/forward_ssh
 fi
 
 
@@ -91,7 +91,7 @@ fi
 
 # If remote access enable start zbw_connect
 if [ $remote_access ]; then
-/etc/init.d/zbw_connect start
+  /etc/init.d/zbw_connect start
 fi
 
 

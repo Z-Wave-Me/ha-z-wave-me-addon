@@ -3,9 +3,6 @@ FROM ubuntu:focal
 ENV branch=ubuntu
 ENV distro=focal
 
-ENV TZ=Europe/London
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 WORKDIR /opt/z-way-server
 
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -18,8 +15,8 @@ RUN apt-get update && \
 RUN wget -q -O - https://storage.z-wave.me/Z-Way-Install |bash
 RUN rm -f /opt/z-way-server/automation/storage/*
 
-RUN useradd -rm -d /home/pi -s /bin/bash -g root -G sudo -u 1000 pi 
-RUN  echo 'pi:razberry' | chpasswd
+RUN useradd -rm -d /home/support -s /bin/bash -g root -G sudo -u 1000 support 
+RUN  echo 'support:razberry' | chpasswd
 
 RUN echo "ha" > /etc/z-way/box_type
 

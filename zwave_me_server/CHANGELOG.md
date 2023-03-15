@@ -3,9 +3,9 @@
 
 - Updated the z-way version to 4.0.3 
 - Add checkbox for remote access
-- Add tech support access checkbox and password (by default login pi, password razberry)
-- fix not showing homeassistant.local in find.z-wave.me
-- Added a port for MQTT, 8883=> to any
+- Add tech support access checkbox and password (login support, default password razberry)
+- Fix not showing homeassistant.local in find.z-wave.me
+- Opened port 8883 for MQTT
 
 
 ## 1.1.12

@@ -12,8 +12,8 @@ RUN apt-get update && \
 RUN wget -q -O - https://storage.z-wave.me/RaspbianInstall |bash
 RUN rm -f /opt/z-way-server/automation/storage/*
 
-RUN useradd -rm -d /home/pi -s /bin/bash -g root -G sudo -u 1000 pi 
-RUN  echo 'pi:razberry' | chpasswd
+RUN useradd -rm -d /home/support -s /bin/bash -g root -G sudo -u 1000 support 
+RUN  echo 'support:razberry' | chpasswd
 
 RUN echo "ha" > /etc/z-way/box_type
 
