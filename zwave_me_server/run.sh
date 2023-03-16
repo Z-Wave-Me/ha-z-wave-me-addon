@@ -7,9 +7,9 @@ device=/dev/ttyACM0
 # Do not use this function if more than Z-Wave 1 interface is used
 forceDevice=false
 
-#By default remote access is on
+# By default remote access is on
 remote_access=true
-#And tech support acccess is not
+# And tech support access is not
 remote_support_access=false
 
 # Default config path
@@ -24,7 +24,6 @@ if [ -f "/data/options.json" ]; then
   remote_support_access=$(grep "remote_support_access" /data/options.json | cut -d ":" -f 2 | tr -d ',')
   zbw_password=$(grep "zbw_password" /data/options.json | cut -d ":" -f 2 | tr -d '," ')
 fi
-
 
 # Change device path in /defailtConfig/config.json
 sed -Ei "s|/dev/tty[A-Z]*[0-9]|$device|g" $defCJ
@@ -72,26 +71,26 @@ ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 echo homeassistant.local > /etc/zbw/local_ips
 echo "8083" > /etc/zbw/local_port
 
-
-
 # Check if remote access for support enable
 if [ $remote_support_access ]; then
   service ssh start
-  touch /data/etc/zbw/flags/forward_ssh
+  touch /etc/zbw/flags/forward_ssh
 else
-  rm /data/etc/zbw/flags/forward_ssh
+  rm /etc/zbw/flags/forward_ssh
 fi
 
 
-# Change pi user default password
+# Change support user default password
 if [ -n "$zbw_password" ]; then
-  echo "pi:$zbw_password" | chpasswd
+  echo "support:$zbw_password" | chpasswd
 fi
 
 
 # If remote access enable start zbw_connect
 if [ $remote_access ]; then
-  /etc/init.d/zbw_connect start
+  rm /etc/zbw/flags/no_connection
+else
+  touch /etc/zbw/flags/no_connection
 fi
 
 

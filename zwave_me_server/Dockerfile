@@ -27,5 +27,3 @@ EXPOSE 8083
 EXPOSE 8883
 
 CMD /opt/z-way-server/run.sh
-
-
