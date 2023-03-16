@@ -73,18 +73,15 @@ echo "8083" > /etc/zbw/local_port
 
 # Check if remote access for support enable
 if [ $remote_support_access ]; then
-  service ssh start
   touch /etc/zbw/flags/forward_ssh
 else
   rm /etc/zbw/flags/forward_ssh
 fi
 
-
 # Change support user default password
 if [ -n "$zbw_password" ]; then
   echo "support:$zbw_password" | chpasswd
 fi
-
 
 # If remote access enable start zbw_connect
 if [ $remote_access ]; then
@@ -93,10 +90,11 @@ else
   touch /etc/zbw/flags/no_connection
 fi
 
-
 # Starting Z-Way services
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
+/etc/init.d/zbw_connect start
+service ssh start
 
 # colored log output
 tail --pid `cat /var/run/z-way-server.pid` -F /var/log/z-way-server.log | /opt/z-way-server/colorize-log.sh
