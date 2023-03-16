@@ -6,3 +6,12 @@ configuration:
   configjson_device_replace:
     name: Use the selected interface at startup every time
     description: The interface that you specified will be used during the first and subsequent launches, however, if this check box is checked, then Z-Way will be started forcibly with the selected port. Do not use this function if you have more than 1 Z-Wave interface
+  remote_access:
+    name: Allow remote access
+    description: Allow remote access via find.z-wave.me. Required for remote access via Z-Wave.Me mobile app
+  remote_support_access:
+    name: Enable access for tech support
+    description: Allow SSH access to the Z-Wave.Me add-on for technical support (does not provide any access to the host system)
+  zbw_password:
+    name: Password for remote tech support
+    description: Set an SSH password for Z-Wave.Me technical. When contacting technical support, you might need to allow remote support access. Specify the password and inform technical support along with the remote access ID.

@@ -11,14 +11,22 @@ url: https://github.com/z-wave-me/ha-z-wave-me-addon/
 ports:
   8083/tcp: 8083
   8084/tcp: 8084
+  8883/tcp: 8883
 options:
   device: /dev/ttyAMA0
   configjson_device_replace: false
+  remote_access: true
+  remote_support_access: false
+  zbw_password: razberry
 schema:
   device: device(subsystem=tty)
   configjson_device_replace: bool?
+  remote_access: bool?
+  remote_support_access: bool?
+  zbw_password: str
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Way UI
   8084/tcp: Webif UI
+  8883/tcp: MQTT server port (use port 8883 in the MQTT app)
 image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"
