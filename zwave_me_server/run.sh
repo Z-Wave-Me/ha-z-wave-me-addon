@@ -70,6 +70,8 @@ ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 # Use homeassistant.local in ZBW (for find.z-wave.me) instead of the local IP as we can't get the IP outside the docker
 echo homeassistant.local > /etc/zbw/local_ips
 echo "8083" > /etc/zbw/local_port
+# And force Z-Way to report the same domain instead of the IP
+echo '"homeassistant.local"' > /opt/z-way-server/automation/localIP.json
 
 # Check if remote access for support enable
 if [ $remote_support_access ]; then
