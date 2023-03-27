@@ -19,7 +19,6 @@ RUN echo "ha" > /etc/z-way/box_type
 
 RUN wget -O /opt/z-way-server/automation/classes/AutomationController.js https://raw.githubusercontent.com/Z-Wave-Me/home-automation/1c5ad7bb95453b5bb7749ad2d1e5907d6949ccc3/classes/AutomationController.js
 
-
 COPY run.sh .
 RUN chmod a+x run.sh
 
