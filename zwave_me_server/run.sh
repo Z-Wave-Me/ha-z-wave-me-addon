@@ -94,7 +94,6 @@ else
   touch /etc/zbw/flags/no_connection
 fi
 
-
 # Starting Z-Way services
 /etc/init.d/mongoose start
 /etc/init.d/z-way-server start
