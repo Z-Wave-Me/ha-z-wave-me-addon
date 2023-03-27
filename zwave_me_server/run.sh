@@ -93,8 +93,6 @@ if [ $remote_access ]; then
 else
   touch /etc/zbw/flags/no_connection
 fi
-##Little fix, remove this line when z-way 4.0.4 release
-wget -O /opt/z-way-server/automation/classes/AutomationController.js https://raw.githubusercontent.com/Z-Wave-Me/home-automation/1c5ad7bb95453b5bb7749ad2d1e5907d6949ccc3/classes/AutomationController.js
 
 
 # Starting Z-Way services
