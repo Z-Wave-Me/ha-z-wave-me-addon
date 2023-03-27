@@ -18,11 +18,12 @@ defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 # If we find file options.json, we use the interface and options from this file
 if [ -f "/data/options.json" ]; then
   # Get device path from Configuration tab of addon
-  device=$(grep -Eo '/dev/tty[A-Z]*[0-9]' /data/options.json)
-  forceDevice=$(grep "configjson_device_replace" /data/options.json | cut -d ":" -f 2 | tr -d ',')
-  remote_access=$(grep "remote_access" /data/options.json | cut -d ":" -f 2 | tr -d ',')
-  remote_support_access=$(grep "remote_support_access" /data/options.json | cut -d ":" -f 2 | tr -d ',')
-  zbw_password=$(grep "zbw_password" /data/options.json | cut -d ":" -f 2 | tr -d '," ')
+  device=$(jq -r '.device | select(. != null)' /data/options.json)
+  forceDevice=$(jq -r '.configjson_device_replace | select(. != null)' /data/options.json)
+  remote_access=$(jq -r '.remote_access | select(. != null)' /data/options.json)
+  remote_support_access=$(jq -r '.remote_support_access | select(. != null)' /data/options.json)
+  zbw_password=$(jq -r '.zbw_password | select(. != null)' /data/options.json)
+  local_ip=$(jq -r '.local_ip | select(. != null)' /data/options.json)
 fi
 
 # Change device path in /defailtConfig/config.json
@@ -67,11 +68,12 @@ fi
 # Make simlinks
 ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
 
-# Use homeassistant.local in ZBW (for find.z-wave.me) instead of the local IP as we can't get the IP outside the docker
-echo homeassistant.local > /etc/zbw/local_ips
+# Use variable local_ip in ZBW (for find.z-wave.me) instead of the local IP as we can't get the IP outside the docker
+echo "$local_ip" > /etc/zbw/local_ips
 echo "8083" > /etc/zbw/local_port
+
 # And force Z-Way to report the same domain instead of the IP
-echo '"homeassistant.local"' > /opt/z-way-server/automation/localIP.json
+echo "\"$local_ip\"" > /opt/z-way-server/automation/localIP.json
 
 # Check if remote access for support enable
 if [ $remote_support_access ]; then

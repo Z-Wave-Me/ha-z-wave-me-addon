@@ -15,3 +15,6 @@ configuration:
   zbw_password:
     name: Password for remote tech support
     description: Set an SSH password for Z-Wave.Me technical. When contacting technical support, you might need to allow remote support access. Specify the password and inform technical support along with the remote access ID.
+  local_ip:
+    name: IP address of the controller
+    description: You can specify the real ip for z-way manually, this is necessary for those cases if you have problems with access via homeassistant.local:8083
