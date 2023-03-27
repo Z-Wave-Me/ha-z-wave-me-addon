@@ -1,4 +1,8 @@
-<!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+## 4.0.3
+
+- Synced version with Z-Way version
+- Add a field for local IP. Default is homeassistant.local, but you can set the IP if mDNS is not supported by your router
+
 ## 1.1.13
 
 - Updated the z-way version to 4.0.3 
