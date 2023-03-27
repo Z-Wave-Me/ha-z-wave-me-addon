@@ -18,7 +18,7 @@ defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 # If we find file options.json, we use the interface and options from this file
 if [ -f "/data/options.json" ]; then
   # Get device path from Configuration tab of addon
-  device=$(grep -Eo '/dev/tty[A-Z]*[0-9]' /data/options.json)
+  device=$(jq -r '.device | select(. != null)' /data/options.json)
   forceDevice=$(jq -r '.configjson_device_replace | select(. != null)' /data/options.json)
   remote_access=$(jq -r '.remote_access | select(. != null)' /data/options.json)
   remote_support_access=$(jq -r '.remote_support_access | select(. != null)' /data/options.json)
