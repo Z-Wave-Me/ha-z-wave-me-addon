@@ -19,11 +19,11 @@ defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 if [ -f "/data/options.json" ]; then
   # Get device path from Configuration tab of addon
   device=$(grep -Eo '/dev/tty[A-Z]*[0-9]' /data/options.json)
-  forceDevice=$(grep -oP '(?<="configjson_device_replace": ).*(?=,)' /data/options.json)
-  remote_access=$(grep -oP '(?<="remote_access": ).*(?=,)' /data/options.json)
-  remote_support_access=$(grep -oP '(?<="remote_support_access": ).*(?=,)' /data/options.json)
-  zbw_password=$(grep -oP '(?<="zbw_password": ).*(?=,|\})' /data/options.json | tr -d '," ')
-  local_ip=$(grep -oP '(?<="local_ip": ").*(?=")' /data/options.json)
+  forceDevice=$(jq -r '.configjson_device_replace | select(. != null)' /data/options.json)
+  remote_access=$(jq -r '.remote_access | select(. != null)' /data/options.json)
+  remote_support_access=$(jq -r '.remote_support_access | select(. != null)' /data/options.json)
+  zbw_password=$(jq -r '.zbw_password | select(. != null)' /data/options.json)
+  local_ip=$(jq -r '.local_ip | select(. != null)' /data/options.json)
 fi
 
 # Change device path in /defailtConfig/config.json
