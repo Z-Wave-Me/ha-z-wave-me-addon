@@ -18,12 +18,14 @@ options:
   remote_access: true
   remote_support_access: false
   zbw_password: razberry
+  local_ip: homeassistant.local
 schema:
   device: device(subsystem=tty)
   configjson_device_replace: bool?
   remote_access: bool?
   remote_support_access: bool?
   zbw_password: str
+  local_ip: str
 webui: http://[HOST]:[PORT:8083]
 ports_description:
   8083/tcp: Z-Way UI
