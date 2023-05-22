@@ -1,3 +1,8 @@
+## 4.1.0
+
+- Update to v4.1.0
+- Fixed factory reset bug
+
 ## 4.0.3
 
 - Synced version with Z-Way version
