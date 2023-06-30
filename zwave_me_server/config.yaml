@@ -1,34 +1,42 @@
 name: Z-Wave.Me Add-on
-startup: services
-version: 4.1.0
+version: 4.1.2
 slug: zwave_me_server
 description: 'Z-Wave.Me Z-Way add-on for Home Assistant'
+startup: services  # Determines when the add-on should start
 arch:
   - amd64
   - aarch64
-  - armhf
-url: https://github.com/z-wave-me/ha-z-wave-me-addon/
+  - armhf  # Architectures the add-on can run on
+init: false
+host_network: true
+host_dbus: true
+uart: true
+hassio_api: true
+
+url: https://github.com/z-wave-me/ha-z-wave-me-addon/  # Add-on repository URL
+image: "ghcr.io/msazanov/{arch}-ha-z-wave-me-addon"  # Docker image for the add-on
 ports:
-  8083/tcp: 8083
-  8084/tcp: 8084
-  8883/tcp: 8883
-options:
-  device: /dev/ttyAMA0
-  configjson_device_replace: false
-  remote_access: true
-  remote_support_access: false
-  zbw_password: razberry
-  local_ip: homeassistant.local
-schema:
-  device: device(subsystem=tty)
-  configjson_device_replace: bool?
-  remote_access: bool?
-  remote_support_access: bool?
-  zbw_password: str
-  local_ip: str
-webui: http://[HOST]:[PORT:8083]
+  8083/tcp: 8083  # Main ports to forward
 ports_description:
-  8083/tcp: Z-Way UI
-  8084/tcp: Webif UI
-  8883/tcp: MQTT server port (use port 8883 in the MQTT app)
-image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"
+  8083/tcp: Z-Way UI  # Description for main ports
+webui: http://[HOST]:[PORT:8083]  # Add-on interface URL
+
+
+options:
+  device: /dev/ttyAMA0  # Main device for connection
+  additional_devices: ""  # Additional devices for connection
+  configjson_device_replace: false  # Device configuration replacement
+  remote_access: true  # Remote access to the add-on
+  remote_support_access: false  # Remote support access
+  zbw_password: razberry  # Access password
+  log_level: 6
+schema:
+  device: device(subsystem=tty)  # Schema for the main device
+  additional_devices: str  # Schema for additional devices
+  configjson_device_replace: bool?  # Schema for device configuration replacement
+  remote_access: bool?  # Schema for remote access
+  remote_support_access: bool?  # Schema for remote support access
+  zbw_password: str  # Schema for password
+  log_level: int(0,6)
+
+

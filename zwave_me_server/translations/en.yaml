@@ -18,3 +18,6 @@ configuration:
   local_ip:
     name: IP address of the controller
     description: You can specify the real ip for z-way manually, this is necessary for those cases if you have problems with access via homeassistant.local:8083
+  log_level:
+    name: Log level
+    description: Set the logging level (0 for all logs, 6 to disable all logs)
