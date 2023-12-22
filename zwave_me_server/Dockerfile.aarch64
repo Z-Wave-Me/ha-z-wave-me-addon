@@ -1,7 +1,7 @@
 # Use the base image for the armhf architecture
 FROM ghcr.io/home-assistant/aarch64-base-debian:bullseye
 
-ENV ZWAY_PACKAGE_URL=https://storage.z-wave.me/z-way-server/z-way-4.1.2-wb7-lws16_armhf.deb
+ENV ZWAY_PACKAGE_URL=https://storage.z-wave.me/z-way-server/z-way-4.1.2-lws16_armhf.deb
 ENV ZBW_PACKAGE_URL=https://storage.z-wave.me/z-way-server/zbw-2.6_all.deb
 
 ENV DEBIAN_FRONTEND=noninteractive
