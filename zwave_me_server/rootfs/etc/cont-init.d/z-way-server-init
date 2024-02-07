@@ -1,0 +1,91 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.info "Preparing Z-Way server to start..."
+
+# Default config path
+defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
+
+bashio::log.info "Checking and updating default config path..."
+
+# Change device path in /defailtConfig/config.json
+if [ -f "$defCJ" ]; then
+    sed -Ei "s|/dev/tty[A-Z]*[0-9]|$(bashio::config 'device')|g" $defCJ
+    bashio::log.info "Device path in default config updated."
+else
+    bashio::log.warning "Default config not found."
+fi
+
+bashio::log.info "Processing folders and files for external /data directory..."
+
+# Folders and files that we need to copy to the external /data directory
+paths="/opt/z-way-server/automation/storage /opt/z-way-server/automation/userModules /opt/z-way-server/htdocs/smarthome/user/skin /opt/z-way-server/htdocs/smarthome/user/icons /etc/zbw"
+for path in $paths; do
+    # Сheck the presence of the /data/ folder and the original server directories.
+    if [ -e $path -a ! -e /data/$path ]; then
+        # Make folders from the path variable with the exception of the last folder in the path
+        mkdir -p /data/`dirname $path`
+        # Moving files and folders from the standard directory to the /data folder
+        mv $path /data/$path
+        bashio::log.info "Moved ${path} to /data${path}."
+    else
+        rm -rf $path
+        bashio::log.info "Removed existing ${path}."
+    fi
+    # Creating symlinks to the objects that we moved
+    ln -sf /data$path $path
+    bashio::log.info "Created symlink for ${path}."
+done
+
+bashio::log.info "Processing user configjson file..."
+
+# User configjson file path
+if [ -f /opt/z-way-server/automation/storage/configjson-* ]; then
+    userCJ=$(ls /opt/z-way-server/automation/storage/configjson-*)
+
+    # If force device selection checked, replace the path in it
+    if [ bashio::config 'configjson_device_replace' ]; then
+        sed -Ei "s|/dev/tty[A-Z]*[0-9]|$(bashio::config 'device')|g" $userCJ
+        bashio::log.info "Device path in user config updated."
+    fi
+else
+    bashio::log.warning "User configjson file not found."
+fi
+
+bashio::log.info "Processing default config directory..."
+
+# Change default config directory to configs/config for compatility with Docker, HA and Hub
+if [ -e /opt/z-way-server/config -a ! -e /data/opt/z-way-server/configs/config ]; then
+  # Change config path in defaultConfigs/config.json from config to configs/config
+  sed -i 's|"config": "config"|"config": "configs/config"|g' $defCJ
+  # Make configs folder in external /data folder
+  mkdir -p /data/opt/z-way-server/configs/
+  # Move config folder from default docker image to external folder
+  mv /opt/z-way-server/config/ /data/opt/z-way-server/configs/
+  bashio::log.info "Moved default config directory."
+else
+  # Jut remove config folder from docker image dirrectory
+  rm -rf /opt/z-way-server/config/
+  bashio::log.info "Removed existing default config directory."
+fi
+
+# Make simlinks
+ln -sf /data/opt/z-way-server/configs/ /opt/z-way-server/
+bashio::log.info "Created symlink for default config directory."
+
+bashio::log.info "Setting local IP..."
+echo "$(hostname -I | awk '{print $1}')" > /opt/z-way-server/automation/localIP.json
+
+
+# Check if the logging level is a number between 0 and 6
+if [[ "$(bashio::config 'log_level')" =~ ^[0-6]$ ]]; then
+    bashio::log.info "Setting log level to $(bashio::config 'log_level')"
+
+    # Use sed to modify the logging level in the config.xml file
+    sed -i "s|<log-level>.*</log-level>|<log-level>$(bashio::config 'log_level')</log-level>|" /opt/z-way-server/config.xml
+
+else
+    bashio::log.error "Invalid log level: $(bashio::config 'log_level'). It should be a number between 0 and 6."
+fi
+
+
+bashio::log.info "Initialization script completed."

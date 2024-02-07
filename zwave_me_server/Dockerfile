@@ -1,32 +1,60 @@
-FROM ubuntu:focal
+# Use the base image for the x86_64 architecture
+FROM ghcr.io/home-assistant/amd64-base-debian:bullseye
 
-ENV branch=ubuntu
-ENV distro=focal
+ENV ZWAY_PACKAGE_URL=https://storage.z-wave.me/z-way-server/z-way-4.1.1_amd64.deb
+ENV ZBW_PACKAGE_URL=https://storage.z-wave.me/z-way-server/zbw-2.6_all.deb
 
-WORKDIR /opt/z-way-server
+ENV DEBIAN_FRONTEND=noninteractive
 
-ENV DEBIAN_FRONTEND=noninteractive 
+COPY rootfs/ /
 
-RUN apt-get update && \
-    apt-get install -qqy --no-install-recommends \
-    ca-certificates curl \
-    wget procps gpg iproute2 openssh-client openssh-server sudo logrotate jq
+# Install necessary libraries and their dependencies
+RUN apt-get update && apt-get install -y \
+libarchive13 \
+libxml2 \
+libssl1.1 \
+libz1 \
+libcurl4 \
+wget \
+sharutils \
+gawk \
+libc-ares2 \
+libavahi-compat-libdnssd-dev \
+libwebsockets16 \
+libmosquitto1 \
+libcurl3-gnutls \
+libnss-mdns \
+logrotate \
+procps \
+openssh-client \
+net-tools \
+iproute2 \
+sudo \
+jq \
+&& rm -rf /var/lib/apt/lists/*
 
-RUN wget -q -O - https://storage.z-wave.me/Z-Way-Install |bash
-RUN rm -f /opt/z-way-server/automation/storage/*
+RUN apt-get clean
+
+# Download and install the Z-Way deb package
+RUN wget $ZWAY_PACKAGE_URL -O z-way.deb && dpkg -i z-way.deb && rm z-way.deb
+# Change config folders, this action is necessary for docker
 RUN sed -i 's|"config": "config"|"config": "configs/config"|g' /opt/z-way-server/automation/defaultConfigs/config.json
-
-RUN useradd -rm -d /home/support -s /bin/bash -g root -G sudo -u 1000 support 
-RUN  echo 'support:razberry' | chpasswd
-
 RUN echo "ha" > /etc/z-way/box_type
 
-RUN wget -O /opt/z-way-server/automation/classes/AutomationController.js https://raw.githubusercontent.com/Z-Wave-Me/home-automation/1c5ad7bb95453b5bb7749ad2d1e5907d6949ccc3/classes/AutomationController.js
+# Download and install the zbw deb package for remote access
+RUN mkdir -p /etc/zbw/flags/
+# Block zbw key request
+RUN touch /etc/zbw/flags/no_connection
+RUN wget $ZBW_PACKAGE_URL -O zbw.deb && dpkg -i zbw.deb && rm zbw.deb
+# Add 'support' user for remote tech support access
+RUN useradd -rm -d /home/support -s /bin/bash -g root -G sudo -u 1000 support
+RUN echo 'support:razberry' | chpasswd
+# Unblock zbw
+RUN rm /etc/zbw/flags/no_connection
 
-COPY run.sh .
-RUN chmod a+x run.sh
+# Cleaning data after building image
+RUN rm -f /opt/z-way-server/automation/storage/*
 
+# Expose ports
 EXPOSE 8083
-EXPOSE 8883
-
-CMD /opt/z-way-server/run.sh
+ENTRYPOINT ["/init"]

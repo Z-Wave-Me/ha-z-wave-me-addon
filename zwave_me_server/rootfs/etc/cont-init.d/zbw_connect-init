@@ -1,0 +1,27 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.info "Preparing Z-Way server to start..."
+
+echo "$(hostname -I | awk '{print $1}')" > /etc/zbw/local_ips
+echo "$(bashio::addon.port 8083)" > /etc/zbw/local_port
+
+# Check if remote access for support enable
+if $(bashio::config 'remote_support_access'); then
+  touch /etc/zbw/flags/forward_ssh
+elif [ -f "/etc/zbw/flags/forward_ssh" ]; then
+  rm /etc/zbw/flags/forward_ssh
+fi
+
+# Change support user default password
+if [ -n "$(bashio::config 'zbw_password')" ]; then
+  echo "support:$(bashio::config 'zbw_password')" | chpasswd
+fi
+
+# If remote access enable start zbw_connect
+if $(bashio::config 'remote_access'); then
+  if [ -f "/etc/zbw/flags/no_connection" ]; then
+    rm /etc/zbw/flags/no_connection
+  fi
+else
+  touch /etc/zbw/flags/no_connection
+fi

@@ -2,7 +2,7 @@ name: Builder
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "config.yaml Dockerfile Dockerfile.aarch64 Dockerfile.armhf run.sh"
+  MONITORED_FILES: "config.yaml Dockerfile Dockerfile.aarch64 Dockerfile.armhf rootfs/etc/services.d/z-way-server/run rootfs/etc/cont-init.d/z-way-server-init rootfs/etc/services.d/zbw_connect/run rootfs/etc/cont-init.d/zbw_connect-init"
 
 on:
   push:

@@ -1,0 +1,38 @@
+#!/usr/bin/with-contenv bashio
+
+# Log the start of the Z-Way server
+bashio::log.info "Starting Z-Way server"
+
+# Define the path to the Z-Way server log for easier reference
+LOG_PATH="/var/log/z-way-server.log"
+
+# Start tailing the Z-Way server log
+tail -f $LOG_PATH | /opt/z-way-server/colorize-log.sh -q | while read -r line; do
+    # Process and categorize log lines based on their content
+
+    # Critical errors
+    if [[ $line == *"[C]"* ]]; then
+        bashio::log.error "$line"
+    # Errors
+    elif [[ $line == *"[E]"* ]]; then
+        bashio::log.warning "$line"
+    # Warnings
+    elif [[ $line == *"[W]"* ]]; then
+        bashio::log.info "$line"
+    # Informational messages
+    elif [[ $line == *"[I]"* ]]; then
+        bashio::log.info "$line"
+    # Debug messages
+    elif [[ $line == *"[D]"* ]]; then
+        bashio::log.info "$line"
+    # All other log lines
+    else
+        bashio::log.info "$line"
+    fi
+done &  # Run this process in the background
+
+# Navigate to the Z-Way server directory
+cd /opt/z-way-server
+
+# Start the Z-Way server with the appropriate library path
+LD_LIBRARY_PATH=./libs ./z-way-server
