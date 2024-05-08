@@ -19,9 +19,18 @@ fi
 
 # If remote access enable start zbw_connect
 if $(bashio::config 'remote_access'); then
-  if [ -f "/etc/zbw/flags/no_connection" ]; then
-    rm /etc/zbw/flags/no_connection
-  fi
+    if [ -f "/etc/zbw/userid" ]; then
+        userid=$(cat /etc/zbw/userid)
+        # Little fix for repair remote access on old instalation
+        if [ "$userid" = "191581" ]; then
+            bashio::log.info "Обнаружен старый ID удаленного доступа. Он будет заменен."
+            wget 'http://find.z-wave.me/zbw_new_user?box_type=ha' -O /tmp/zbw_connect_setup.run && sudo bash /tmp/zbw_connect_setup.run -y
+        fi
+    fi
+
+    if [ -f "/etc/zbw/flags/no_connection" ]; then
+        rm /etc/zbw/flags/no_connection
+    fi
 else
-  touch /etc/zbw/flags/no_connection
+    touch /etc/zbw/flags/no_connection
 fi
