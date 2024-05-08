@@ -2,7 +2,7 @@ name: Builder
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "config.yaml Dockerfile Dockerfile.aarch64 Dockerfile.armhf run.sh"
+  MONITORED_FILES: "config.yaml Dockerfile Dockerfile.aarch64 Dockerfile.armhf rootfs/etc/cont-init.d/z-way-server-init rootfs/etc/cont-init.d/zbw_connect-init rootfs/etc/services.d/zbw_connect/run rootfs/etc/services.d/zbw_connect/finish rootfs/etc/services.d/z-way-server/run rootfs/etc/services.d/z-way-server/finish"
 
 on:
   push:
@@ -100,7 +100,7 @@ jobs:
 
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2023.09.0
+        uses: home-assistant/builder@2024.03.5
         with:
           args: |
             ${{ env.BUILD_ARGS }} \
