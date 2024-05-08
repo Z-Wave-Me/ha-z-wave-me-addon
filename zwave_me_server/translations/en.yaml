@@ -4,8 +4,8 @@ configuration:
     name: Device
     description: The serial port to which the Razberry card or the UZB-stick connected
   configjson_device_replace:
-    name: Use the selected interface at startup every time
-    description: The interface that you specified will be used during the first and subsequent launches, however, if this check box is checked, then Z-Way will be started forcibly with the selected port. Do not use this function if you have more than 1 Z-Wave interface
+    name: Force change port on "Z-Wave Network Access" application
+    description: Forcibly overwrite the port in the "Z-Wave Network Access" application
   remote_access:
     name: Allow remote access
     description: Allow remote access via find.z-wave.me. Required for remote access via Z-Wave.Me mobile app
@@ -18,3 +18,6 @@ configuration:
   local_ip:
     name: IP address of the controller
     description: You can specify the real ip for z-way manually, this is necessary for those cases if you have problems with access via homeassistant.local:8083
+  log_level:
+    name: Log level
+    description: Set the logging level (0 for all logs, 6 to disable all logs)
