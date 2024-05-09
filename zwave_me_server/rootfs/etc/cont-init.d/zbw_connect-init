@@ -23,7 +23,7 @@ if $(bashio::config 'remote_access'); then
         userid=$(cat /etc/zbw/userid)
         # Little fix for repair remote access on old instalation
         if [ "$userid" = "191581" ]; then
-            bashio::log.info "Обнаружен старый ID удаленного доступа. Он будет заменен."
+            bashio::log.info "Found problematic Remote Access ID. Reset it to get a new one."
             wget 'http://find.z-wave.me/zbw_new_user?box_type=ha' -O /tmp/zbw_connect_setup.run && sudo bash /tmp/zbw_connect_setup.run -y
         fi
     fi
