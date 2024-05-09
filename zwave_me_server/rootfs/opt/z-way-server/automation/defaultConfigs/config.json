@@ -68,24 +68,23 @@
 		"title": "Z-Wave Network Access",
 		"description": "Allows accessing Z-Wave devices from attached Z-Wave transceiver.\n(Added by default)"
 	}, {
-        "id": 2,
-        "moduleId": "Zigbee",
-        "active": false,
-        "title": "Zigbee Network Access",
-        "params": {
-            "name": "zbee",
-            "port": "/dev/ttyUSB1",
-            "speed": 115200,
-            "enableAPI": true,
-            "publicAPI": false,
-            "createVDev": true,
-            "config": "configs/config",
-            "translations": "translations",
-            "ZDDX": "ZDDX"
-        },
-        "description": "Allows accessing ZigBee devices from attached ZigBee coordinator.\n(Added by default)"
-
-    }, {
+		"id": 2,
+		"moduleId": "Zigbee",
+		"active": false,
+		"title": "Zigbee Network Access",
+		"params": {
+			"name": "zbee",
+			"port": "/dev/ttyUSB1",
+			"speed": 115200,
+			"enableAPI": true,
+			"publicAPI": false,
+			"createVDev": true,
+			"config": "configs/config",
+			"translations": "translations",
+			"ZDDX": "ZDDX"
+		},
+		"description": "Allows accessing ZigBee devices from attached ZigBee coordinator.\n(Added by default)"
+	}, {
 		"id": 3,
 		"moduleId": "Cron",
 		"params": {},
