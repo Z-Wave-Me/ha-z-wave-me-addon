@@ -14,7 +14,6 @@ RUN apt-get update && \
 
 RUN wget -q -O - https://storage.z-wave.me/Z-Way-Install |bash
 RUN rm -f /opt/z-way-server/automation/storage/*
-RUN sed -i 's|"config": "config"|"config": "configs/config"|g' /opt/z-way-server/automation/defaultConfigs/config.json
 
 RUN useradd -rm -d /home/support -s /bin/bash -g root -G sudo -u 1000 support
 RUN  echo 'support:razberry' | chpasswd
