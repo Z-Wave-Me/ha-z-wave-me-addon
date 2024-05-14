@@ -1,5 +1,5 @@
 # Z-Wave.Me add-on for Home Assistant
-This add-on starts Z-Wave.Me Z-Way server in a supervised Home Assistant (HAOS) and Home Assistant Yellow.
+This add-on starts Z-Wave.Me Z-Way server in a supervised Home Assistant (HAOS), Home Assistant Yellow and Green.
 
 # Install Z-Way add-on
 Add this add-on to your Home Assistant
@@ -9,8 +9,8 @@ Add this add-on to your Home Assistant
 ![Supports amd64 Architecture][amd64-shield]
 ![Supports armhf Architecture][armhf-shield]
 ![Supports aarch64 Architecture][aarch64-shield]
-<!-- ![Supports i386 Architecture][i386-shield] -->
-<!-- ![Supports armv7 Architecture][armv7-shield] -->
+![Supports i386 Architecture][i386-shield]
+![Supports armv7 Architecture][armv7-shield]
 
 Once installed, Z-Way interface can be accessed on port http://homeassistant.local:8083.
 
@@ -20,11 +20,11 @@ After installing this add-on, add [Z-Wave.Me intergration](https://www.home-assi
 [![Open your Home Assistant instance and show the integration dialog with a specific integration URL pre-filled.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=zwave_me)
 
 # What is Z-Way?
-Z-Wave.Me Z-Way is a complete Smart Home Controller Software supporting Z-Wave and EnOcean radio protocols, as well as WiFi, MQTT and HTTP-based devices.
+Z-Wave.Me Z-Way is a complete Smart Home Controller Software supporting Z-Wave, Zigbee and EnOcean radio protocols, as well as WiFi, MQTT and HTTP-based devices.
 
 Z-Way key features:
 - Complete Smart Home Controller software for various platforms
-- Supports Z-Wave Security S2, Smart Start and Long Range
+- Supports Z-Wave Security S2, SmartStart and Long Range
 - Tested against more than 700 physical devices for interoperability
 - Easy to integrate with other systems in your home
 - Built-in network diagnostics tools
