@@ -1,0 +1,35 @@
+#!/usr/bin/with-contenv bashio
+
+# Log the start of the zbw_connect service
+bashio::log.info "Starting zbw_connect"
+
+# Start the zbw_connect service
+/etc/init.d/zbw_connect start
+
+# Define the path to the PID file for easier reference
+PID_FILE="/var/run/zbw_connect.pid"
+
+# Wait for the PID file to be created, indicating that the service has started
+while [ ! -f $PID_FILE ]; do
+    # Sleep for 1 second before checking again
+    sleep 1
+done
+
+# Log that the zbw_connect service has started successfully
+bashio::log.info "zbw_connect has started successfully!"
+
+# Keep the script running in the foreground to monitor the service
+while true; do
+    # Fetch the PID from the PID file
+    PID=$(cat $PID_FILE)
+
+    # Check if the process with the fetched PID is still running
+    if ! kill -0 $PID 2>/dev/null; then
+        # If the process is not running, log an error and exit the script
+        bashio::log.error "zbw_connect process (PID: $PID) is not running. Exiting..."
+        exit 1
+    fi
+
+    # Sleep for 10 seconds before checking the process again
+    sleep 10
+done
